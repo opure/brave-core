@@ -1,0 +1,13 @@
+diff --git a/content/browser/worker_host/shared_worker_host.cc b/content/browser/worker_host/shared_worker_host.cc
+index be8d622fe81ceccd262be790a1d777d92b660edc..c805dd8b19c961bb085bedef05e3a0a2cd0fca92 100644
+--- a/content/browser/worker_host/shared_worker_host.cc
++++ b/content/browser/worker_host/shared_worker_host.cc
+@@ -235,7 +235,7 @@ void SharedWorkerHost::Start(
+   factory_.Bind(std::move(factory));
+   factory_->CreateSharedWorker(
+       std::move(info), token_, instance_.constructor_origin(),
+-      GetContentClient()->browser()->GetUserAgent(),
++      BRAVE_SHARED_WORKER_HOST_START
+       GetContentClient()->browser()->GetUserAgentMetadata(),
+       devtools_handle_->pause_on_start(), devtools_handle_->dev_tools_token(),
+       std::move(renderer_preferences), std::move(preference_watcher_receiver),
