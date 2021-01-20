@@ -50,7 +50,10 @@ class AdBlockService : public AdBlockBaseService {
                           blink::mojom::ResourceType resource_type,
                           const std::string& tab_host,
                           bool* did_match_exception,
-                          std::string* mock_data_url) override;
+                          bool* did_match_important,
+                          std::string* mock_data_url,
+                          bool previously_matched_rule,
+                          bool previously_matched_exception) override;
 
   AdBlockRegionalServiceManager* regional_service_manager();
   AdBlockCustomFiltersService* custom_filters_service();

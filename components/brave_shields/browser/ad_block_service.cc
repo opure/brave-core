@@ -23,7 +23,7 @@
 #include "brave/components/brave_shields/browser/ad_block_regional_service_manager.h"
 #include "brave/components/brave_shields/browser/ad_block_service_helper.h"
 #include "brave/components/brave_shields/common/brave_shield_constants.h"
-#include "brave/vendor/adblock_rust_ffi/src/wrapper.hpp"
+#include "brave/vendor/adblock_rust_ffi/src/wrapper.h"
 #include "components/prefs/pref_registry_simple.h"
 #include "components/prefs/pref_service.h"
 #include "net/base/registry_controlled_domains/registry_controlled_domain.h"
@@ -77,30 +77,39 @@ bool AdBlockService::ShouldStartRequest(
     blink::mojom::ResourceType resource_type,
     const std::string& tab_host,
     bool* did_match_exception,
-    std::string* mock_data_url) {
-
-  if (!AdBlockBaseService::ShouldStartRequest(
-          url, resource_type, tab_host, did_match_exception, mock_data_url)) {
+    bool* did_match_important,
+    std::string* mock_data_url,
+    bool previously_matched_rule,
+    bool previously_matched_exception) {
+  bool matched = !AdBlockBaseService::ShouldStartRequest(
+      url, resource_type, tab_host, did_match_exception, did_match_important,
+      mock_data_url, previously_matched_rule, previously_matched_exception);
+  if (did_match_important && *did_match_important) {
     return false;
   }
-  if (did_match_exception && *did_match_exception) {
-    return true;
-  }
+  previously_matched_rule |= matched;
+  previously_matched_exception |= *did_match_exception;
 
-  if (!regional_service_manager()->ShouldStartRequest(
-          url, resource_type, tab_host, did_match_exception, mock_data_url)) {
+  matched = !regional_service_manager()->ShouldStartRequest(
+      url, resource_type, tab_host, did_match_exception, did_match_important,
+      mock_data_url, previously_matched_rule, previously_matched_exception);
+  if (did_match_important && *did_match_important) {
     return false;
   }
-  if (did_match_exception && *did_match_exception) {
-    return true;
-  }
+  previously_matched_rule |= matched;
+  previously_matched_exception |= *did_match_exception;
 
-  if (!custom_filters_service()->ShouldStartRequest(
-        url, resource_type, tab_host, did_match_exception, mock_data_url)) {
+  matched = !custom_filters_service()->ShouldStartRequest(
+      url, resource_type, tab_host, did_match_exception, did_match_important,
+      mock_data_url, previously_matched_rule, previously_matched_exception);
+  if (did_match_important && *did_match_important) {
     return false;
   }
-  if (did_match_exception && *did_match_exception) {
-    return true;
+  previously_matched_rule |= matched;
+  previously_matched_exception |= *did_match_exception;
+
+  if (previously_matched_rule && !previously_matched_exception) {
+    return false;
   }
 
   return true;

@@ -35,7 +35,10 @@ class BaseBraveShieldsService : public BraveComponent {
                                   blink::mojom::ResourceType resource_type,
                                   const std::string& tab_host,
                                   bool* did_match_exception,
-                                  std::string* mock_data_url);
+                                  bool* did_match_important,
+                                  std::string* mock_data_url,
+                                  bool previously_matched_rule,
+                                  bool previously_matched_exception);
 
  protected:
   virtual bool Init() = 0;

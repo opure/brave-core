@@ -54,9 +54,12 @@ bool BaseBraveShieldsService::ShouldStartRequest(
     blink::mojom::ResourceType resource_type,
     const std::string& tab_host,
     bool* did_match_exception,
-    std::string* mock_data_url) {
-  if (did_match_exception) {
-    *did_match_exception = false;
+    bool* did_match_important,
+    std::string* mock_data_url,
+    bool previously_matched_rule,
+    bool previously_matched_exception) {
+  if (previously_matched_rule && !previously_matched_exception) {
+    return false;
   }
   return true;
 }
