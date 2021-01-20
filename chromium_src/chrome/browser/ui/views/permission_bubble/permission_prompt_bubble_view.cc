@@ -14,6 +14,7 @@
 #include "brave/browser/widevine/widevine_permission_request.h"
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/ui/views/chrome_layout_provider.h"
+#include "components/permissions/request_type.h"
 #include "ui/gfx/text_constants.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "ui/views/controls/button/checkbox.h"
@@ -51,9 +52,8 @@ bool HasWidevinePermissionRequest(
     const std::vector<permissions::PermissionRequest*>& requests) {
   // When widevine permission is requested, |requests| only includes Widevine
   // permission because it is not a candidate for grouping.
-  if (requests.size() == 1 &&
-      requests[0]->GetPermissionRequestType() ==
-          permissions::PermissionRequestType::PERMISSION_WIDEVINE)
+  if (requests.size() == 1 && requests[0]->GetPermissionRequestType() ==
+                                  permissions::RequestType::kWidevine)
     return true;
 
   return false;

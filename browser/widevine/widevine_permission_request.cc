@@ -8,6 +8,7 @@
 #include "brave/browser/widevine/widevine_utils.h"
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/lifetime/application_lifetime.h"
+#include "components/permissions/request_type.h"
 #include "components/vector_icons/vector_icons.h"
 #include "content/public/browser/web_contents.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -64,7 +65,7 @@ void WidevinePermissionRequest::RequestFinished() {
 
 permissions::PermissionRequestType
 WidevinePermissionRequest::GetPermissionRequestType() const {
-  return permissions::PermissionRequestType::PERMISSION_WIDEVINE;
+  return permissions::RequestType::kWidevine;
 }
 
 base::string16 WidevinePermissionRequest::GetExplanatoryMessageText() const {
