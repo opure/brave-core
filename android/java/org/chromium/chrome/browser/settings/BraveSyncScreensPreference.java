@@ -90,7 +90,6 @@ import org.chromium.chrome.browser.sync.settings.SyncSettingsUtils;
 import org.chromium.chrome.browser.sync.settings.SyncSettingsUtils.SyncError;
 import org.chromium.content_public.browser.UiThreadTaskTraits;
 import org.chromium.ui.KeyboardVisibilityDelegate;
-import org.chromium.ui.UiUtils;
 import org.chromium.ui.base.DeviceFormFactor;
 
 import java.io.IOException;
@@ -453,10 +452,6 @@ public class BraveSyncScreensPreference extends BravePreferenceFragment
         if (null != mBraveSyncBtnAndroidSyncSettings) {
             mBraveSyncBtnAndroidSyncSettings.setOnClickListener(this);
         }
-        ImageView syncNotWorkingImage =
-                (ImageView) getView().findViewById(R.id.brave_sync_image_not_working);
-        syncNotWorkingImage.setImageDrawable(UiUtils.getTintedDrawable(
-                getActivity(), R.drawable.ic_sync_error_legacy_40dp, R.color.default_red));
 
         setMainSyncText();
         mCameraSourcePreview = (CameraSourcePreview) getView().findViewById(R.id.preview);
