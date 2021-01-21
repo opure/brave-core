@@ -1,9 +1,9 @@
-/* Copyright (c) 2020 The Brave Authors. All rights reserved.
+/* Copyright (c) 2021 The Brave Authors. All rights reserved.
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#include "brave/components/brave_shields/domain_blocked_page.h"
+#include "brave/components/brave_shields/browser/domain_blocked_page.h"
 
 #include <utility>
 
@@ -63,6 +63,7 @@ void DomainBlockedPage::PopulateInterstitialStrings(
       "primaryParagraph",
       l10n_util::GetStringUTF16(IDS_DOMAIN_BLOCKED_PRIMARY_PARAGRAPH));
 
+#if 0 // TODO
   load_time_data->SetString(
       "primaryButtonText",
       l10n_util::GetStringUTF16(IDS_DOMAIN_BLOCKED_PRIMARY_BUTTON));
@@ -72,6 +73,7 @@ void DomainBlockedPage::PopulateInterstitialStrings(
   load_time_data->SetString(
       "closeDetails",
       l10n_util::GetStringUTF16(IDS_DOMAIN_BLOCKED_CLOSE_DETAILS_BUTTON));
+#endif
   load_time_data->SetString(
       "explanationParagraph",
       l10n_util::GetStringUTF16(IDS_DOMAIN_BLOCKED_EXPLANATION));
@@ -79,7 +81,7 @@ void DomainBlockedPage::PopulateInterstitialStrings(
 }
 
 int DomainBlockedPage::GetHTMLTemplateId() {
-  return IDR_IPFS_INTERSTITIAL_HTML;
+  return IDR_DOMAIN_BLOCKED_INTERSTITIAL_HTML;
 }
 
 security_interstitials::SecurityInterstitialPage::TypeID

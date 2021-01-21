@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 The Brave Authors. All rights reserved.
+/* Copyright (c) 2021 The Brave Authors. All rights reserved.
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -56,11 +56,8 @@ class DomainBlockedPage
   void PopulateInterstitialStrings(
       base::DictionaryValue* load_time_data) override;
   int GetHTMLTemplateId() override;
-
- private:
-  // friend class IpfsNavigationThrottleBrowserTest;
 };
 
 }  // namespace brave_shields
 
-#endif  // BRAVE_COMPONENTS_IPFS_IPFS_NOT_CONNECTED_PAGE_H_
+#endif  // BRAVE_COMPONENTS_BRAVE_SHIELDS_DOMAIN_BLOCKED_PAGE_H_
